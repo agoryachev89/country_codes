@@ -1,13 +1,11 @@
 import json
 from pymongo import MongoClient
 
-client = MongoClient('localhost', 27017)
-db = client.mopub
+db_countries = MongoClient('localhost', 27017).countries.countries
 
 with open('countries.json') as data_file:
     data = json.load(data_file)
 
-for obj in data:
-    db.countries.insert(obj)
+db_countries.insert_many(data, False)
 
 print "success"
